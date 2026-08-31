@@ -9,6 +9,7 @@ export abstract class Player {
     constructor(
         //public name: string,
     ) {}
+    abstract post(s: string): void
     abstract query<T>(
         desc: string,
         scheme: z.ZodType<T>,
@@ -16,6 +17,9 @@ export abstract class Player {
 }
 
 export class IOPlayer extends Player {
+    post(s: string) {
+        console.log(s)
+    }
     query<T>(desc: string, scheme: z.ZodType<T>) {
         return int()
             .map(() => scheme.safeParse(prompt(desc)))
