@@ -7,7 +7,7 @@ export const int = function *(n = Infinity) {
 
 export abstract class Player {
     constructor(
-        //public name: string,
+        public name: string,
     ) {}
     abstract post(s: string): void
     abstract query<T>(
@@ -18,11 +18,11 @@ export abstract class Player {
 
 export class IOPlayer extends Player {
     post(s: string) {
-        console.log(s)
+        console.log(`[${this.name}]`, s)
     }
     query<T>(desc: string, scheme: z.ZodType<T>) {
         return int()
-            .map(() => scheme.safeParse(prompt(desc)))
+            .map(() => scheme.safeParse(prompt(`[${this.name}] ${desc}`)))
             .find(x => x.success)!
             .data
     }

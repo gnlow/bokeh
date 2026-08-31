@@ -23,9 +23,9 @@ class RSP extends Game {
 }
 
 const g = new RSP([
-    new IOPlayer,
-    new IOPlayer,
-    new IOPlayer,
+    new IOPlayer("P1"),
+    new IOPlayer("P2"),
+    new IOPlayer("P3"),
 ])
 
 await Array.fromAsync(g.play())
