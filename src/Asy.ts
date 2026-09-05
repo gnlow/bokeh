@@ -33,3 +33,8 @@ export class Asy<T> {
         return (...args: Args) => new Asy(f(...args))
     }
 }
+
+export const int =
+Asy.f(async function* (n = Infinity) {
+    for (let i=0; i<n; yield i++);
+})
