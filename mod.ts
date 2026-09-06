@@ -9,4 +9,9 @@ export abstract class Game {
         readonly players: Player[],
     ) {}
     abstract play(): AsyncGenerator
+    async post(s: string) {
+        await Promise.all(this.players.map(player =>
+            player.post(s)
+        ))
+    }
 }
