@@ -14,11 +14,11 @@ export abstract class Player {
 
 export class IOPlayer extends Player {
     async post(s: string) {
-        console.log(`[${this.name}]`, s)
+        console.log(`[-> ${this.name}]`, s)
     }
     async query<T>(desc: string, scheme: z.ZodType<T>) {
         return (await int()
-            .map(() => scheme.safeParse(prompt(`[${this.name}] ${desc}`)))
+            .map(() => scheme.safeParse(prompt(`[-> ${this.name}] ${desc}`)))
             .find(x => x.success))!
             .data! satisfies T
     }
@@ -74,6 +74,9 @@ export class LLMPlayer extends Player {
             role: "assistant",
             content: res.choices[0].message.content,
         })
-        return scheme.parse(res.choices[0].message.parsed)
+        
+        const parsed = scheme.parse(res.choices[0].message.parsed)
+        console.log(`[<- ${this.name}] ${parsed}`)
+        return parsed
     }
 }
